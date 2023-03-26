@@ -1,17 +1,10 @@
 package com.snake.redsnake.Controllers;
 
+import com.snake.redsnake.Interfaces.Position;
+import javafx.scene.input.KeyCode;
+import java.util.Map;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.Node;
-import java.util.Map;
-import javafx.scene.input.KeyCode;
-
-//Position interface that takes an abstract method moveSnake that contains a KeyEvent argument based on the user input.
-//It also contains the snake Node and there are also takes 2 enums: MoveKey and MoveKeyArrow with the desired keys.
-interface Position {
-    enum MoveKey {W, A, S, D}
-    enum MoveKeyArrow {UP, LEFT, DOWN, RIGHT}
-    void moveSnake(KeyEvent event, Node snake);
-}
 
 //SnakeController class that implements the Position interface.
 public class SnakeController implements Position {
@@ -40,7 +33,7 @@ public class SnakeController implements Position {
 
     //A public void moveSnake method that takes a KeyEvent argument based on the user input.
     @Override
-    public void moveSnake(KeyEvent event, Node snake) {
+    public MoveKey moveSnake(KeyEvent event, Node snake) {
         //Gets an enum moveKey and moveKeyArrow instance from the Position interface.
         MoveKey moveKey = moveKeyMap.get(event.getCode());
         MoveKeyArrow moveKeyArrow = moveKeyArrowMap.get(event.getCode());
@@ -76,5 +69,7 @@ public class SnakeController implements Position {
             gameStateController.gameBoundsRight(snake);
             animationController.autoMoveRight(snake);
         }
+
+        return moveKey;
     }
 }

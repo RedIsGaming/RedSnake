@@ -36,20 +36,18 @@ public class RedSnakeApplication extends Application {
         if (node instanceof Rectangle)
             snake = node;
 
-        //New Controller instances from the FoodController, SnakeController and CanvasController.
-        FoodController foodController = new FoodController();
+        //New Controller instances from the CollisionController, SnakeController and CanvasController.
+        CollisionController collisionController = new CollisionController();
         SnakeController snakeController = new SnakeController();
         Canvas canvas = CanvasController.createCanvas();
 
-        //Calls the foodController instance that puts the pane and snake in the eatFood method and afterwards on the canvas.
+        //Calls the foodController and collisionController instance that puts the pane and/or snake in the called method
+        //and afterwards on the canvas.
         pane.getChildren().add(canvas);
-        foodController.eatFood(pane, snake);
+        collisionController.createCollision(pane, snake);
 
         //Get the snake on the pane.
-        snake = pane.getChildren()
-            .stream()
-            .findFirst()
-            .orElse(null);
+        snake = pane.getChildren().stream().findFirst().orElse(null);
 
         //Creates a new Scene, with the pane where the canvas is in with the desired width, height and color.
         //Calls the setOnKeyPressed from the snakeController with the method moveSnake in order to let the movement work.
@@ -65,7 +63,7 @@ public class RedSnakeApplication extends Application {
 
     //The main program to launch the GUI and a welcome message.
     public static void main(String[] args) {
-        System.out.println("Welcome to RedSnake game! Have fun, you can use the WASD or Arrow Keys to start!");
+        System.out.println("\u001B[31mWelcome to RedSnake game! Have fun, you can use the WASD or Arrow Keys to start!" + "\n");
         launch();
     }
 }

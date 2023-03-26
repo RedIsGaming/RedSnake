@@ -9,7 +9,7 @@ public class ScoreController {
     public Integer scoreCounter() {
         counter++;
 
-        System.out.printf("Your current score is: %d%n", counter);
+        System.out.printf("\u001B[36mYour current score is: %d%n", counter);
         return counter;
     }
 }

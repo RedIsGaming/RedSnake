@@ -1,27 +1,15 @@
 //This Controller has no relevant comments as there are to many duplicates that disturb the developers sight. Was 114 lines.
-//I have to refactor this.
 package com.snake.redsnake.Controllers;
 
-import javafx.animation.AnimationTimer;
+import com.snake.redsnake.Interfaces.Animation;
 import javafx.scene.Node;
-
-interface Animation {
-    void autoMoveUp(Node snake);
-    void autoMoveLeft(Node snake);
-    void autoMoveDown(Node snake);
-    void autoMoveRight(Node snake);
-}
+import javafx.animation.AnimationTimer;
 
 public class AnimationController implements Animation {
-    private static final int ANIMATION_UP_DOWN = 630;
-    private static final int ANIMATION_LEFT_RIGHT = 960;
-    private static final int ZERO = 0;
-    private static final double SPEED = 2.5;
-
     @Override
-    public void autoMoveUp(Node snake) {
+    public boolean autoMoveUp(Node snake) {
         AnimationTimer animationTimer = new AnimationTimer() {
-            private final double x = snake.getTranslateX();
+            private double x = snake.getTranslateX();
             private double y = snake.getTranslateY();
 
             @Override
@@ -35,14 +23,16 @@ public class AnimationController implements Animation {
                 snake.setTranslateY(y);
             }
         };
+
         animationTimer.start();
+        return false;
     }
 
     @Override
-    public void autoMoveLeft(Node snake) {
+    public boolean autoMoveLeft(Node snake) {
         AnimationTimer animationTimer = new AnimationTimer() {
             private double x = snake.getTranslateX();
-            private final double y = snake.getTranslateY();
+            private double y = snake.getTranslateY();
 
             @Override
             public void handle(long timestamp) {
@@ -55,13 +45,15 @@ public class AnimationController implements Animation {
                 snake.setTranslateY(y);
             }
         };
+
         animationTimer.start();
+        return false;
     }
 
     @Override
-    public void autoMoveDown(Node snake) {
+    public boolean autoMoveDown(Node snake) {
         AnimationTimer animationTimer = new AnimationTimer() {
-            private final double x = snake.getTranslateX();
+            private double x = snake.getTranslateX();
             private double y = snake.getTranslateY();
 
             @Override
@@ -75,14 +67,16 @@ public class AnimationController implements Animation {
                 snake.setTranslateY(y);
             }
         };
+
         animationTimer.start();
+        return false;
     }
 
     @Override
-    public void autoMoveRight(Node snake) {
+    public boolean autoMoveRight(Node snake) {
         AnimationTimer animationTimer = new AnimationTimer() {
             private double x = snake.getTranslateX();
-            private final double y = snake.getTranslateY();
+            private double y = snake.getTranslateY();
 
             @Override
             public void handle(long timestamp) {
@@ -95,6 +89,8 @@ public class AnimationController implements Animation {
                 snake.setTranslateY(y);
             }
         };
+
         animationTimer.start();
+        return false;
     }
 }

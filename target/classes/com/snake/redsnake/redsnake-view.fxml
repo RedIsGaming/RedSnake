@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.Group?>
+<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.effect.Blend?>
+
+<!--The Main Pane that will be used on the Scene.-->
+<Pane xmlns="http://javafx.com/javafx/19" xmlns:fx="http://javafx.com/fxml/1"
+    prefWidth="960.0" prefHeight="540.0"
+    minWidth="-Infinity" minHeight="-Infinity"
+    maxWidth="-Infinity" maxHeight="-Infinity">
+
+    <children>
+        <!--The Sub Pane that will be used on the Scene.-->
+        <Pane>
+            <children>
+                <Group>
+                    <Rectangle fx:id="player" fill="#FFFFFF"
+                        width="30.0" height="30.0"
+                        layoutX="0.0" layoutY="0.0">
+
+                        <effect>
+                            <Blend />
+                        </effect>
+                    </Rectangle>
+                </Group>
+            </children>
+        </Pane>
+   </children>
+</Pane>
+
+<!--Todo -> Last checked at 27-3-2023 15:02-->

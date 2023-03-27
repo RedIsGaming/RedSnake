@@ -2,68 +2,64 @@ package com.snake.redsnake;
 
 import javafx.application.Application;
 import javafx.scene.Node;
-import javafx.scene.shape.Rectangle;
+import com.snake.redsnake.Enums.Direction;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.fxml.FXMLLoader;
-
 import javafx.scene.layout.Pane;
-import com.snake.redsnake.Controllers.*;
+
+import javafx.scene.shape.Rectangle;
 import javafx.scene.canvas.Canvas;
+import com.snake.redsnake.Controllers.Canvas.CanvasController;
+import com.snake.redsnake.Controllers.Collisions.CollisionController;
+import com.snake.redsnake.Controllers.Movements.MovementController;
 import javafx.scene.Scene;
 import javafx.scene.paint.Color;
 
-//RedSnakeApplication class that extends the Application.
+//Class RedSnakeApplication that extends the Application class which is the Entry Point for the Javafx (GUI) program.
 public class RedSnakeApplication extends Application {
-    //A private static snake Node as Rectangle with a public static method getSnake Node that returns the snake node.
-    private static Node snake;
+    private Node snake;
+    private Direction direction;
 
-    public static Node getSnake() {
-        return snake;
-    }
-
-    //A public void start method that contains a Stage in order to capture the Javafx GUI.
+    //A method start with a Stage that might throw an IOException when the program fails. This method is needed to set
+    //and get all relevant Controllers and classes to let the main program run properly.
     @Override
     public void start(Stage stage) throws IOException {
-        //Retrieves a new FXMLLoader with the desired fxml file that will be put in a Pane.
         FXMLLoader fxmlLoader = new FXMLLoader(RedSnakeApplication.class.getResource("redsnake-view.fxml"));
         Pane pane = fxmlLoader.load();
-
-        //Gets the node and looks up for the Rectangle with the rectangle1 ID in order to get a Rectangle and not null.
         Node node = pane.lookup("#player");
 
-        //Condition to check if the node is an instance of the Rectangle
+        //Important condition to set the Node to a Rectangle and to get all the relevant settings, so it's not null.
         if (node instanceof Rectangle)
             snake = node;
 
-        //New Controller instances from the CollisionController, SnakeController and CanvasController.
-        CollisionController collisionController = new CollisionController();
-        SnakeController snakeController = new SnakeController();
-        Canvas canvas = CanvasController.createCanvas();
+        //The snake can still be null. This checks for the first object on the Pane or else null is returned.
+        snake = pane.getChildren().stream()
+            .findFirst()
+            .orElse(null);
 
-        //Calls the foodController and collisionController instance that puts the pane and/or snake in the called method
-        //and afterwards on the canvas.
+        Canvas canvas = CanvasController.createCanvas();
         pane.getChildren().add(canvas);
+
+        CollisionController collisionController = new CollisionController();
         collisionController.createCollision(pane, snake);
 
-        //Get the snake on the pane.
-        snake = pane.getChildren().stream().findFirst().orElse(null);
-
-        //Creates a new Scene, with the pane where the canvas is in with the desired width, height and color.
-        //Calls the setOnKeyPressed from the snakeController with the method moveSnake in order to let the movement work.
+        //The MovementController is placed here, because direction could be null.
+        MovementController movementController = new MovementController(snake, direction);
         Scene scene = new Scene(pane, 960, 630, Color.rgb(0, 0 ,0));
-        scene.setOnKeyPressed(event -> snakeController.moveSnake(event, snake));
+        scene.setOnKeyPressed(event -> movementController.createMovement(event, snake));
 
-        //Stage settings like the title, the actual scene, the position and the call to show the stage.
         stage.setTitle("Snake game powered by RedIsGaming!");
-        stage.setScene(scene);
         stage.centerOnScreen();
+        stage.setScene(scene);
         stage.show();
     }
 
-    //The main program to launch the GUI and a welcome message.
+    //A method main that launches the start method and compiles everything that is connected to it. A message is created.
     public static void main(String[] args) {
         System.out.println("\u001B[31mWelcome to RedSnake game! Have fun, you can use the WASD or Arrow Keys to start!" + "\n");
         launch();
     }
 }
+
+//Todo -> Last checked at 27-3-2023 16:16

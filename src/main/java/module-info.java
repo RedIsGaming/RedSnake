@@ -7,4 +7,5 @@ module com.snake.redsnake {
 
     opens com.snake.redsnake to javafx.fxml;
     exports com.snake.redsnake;
+    exports com.snake.redsnake.Enums;
 }

@@ -51,8 +51,6 @@ public class MovementTimer extends AnimationTimer {
                 if (x > 960)
                     x = 0;
             }
-
-            default -> {}
         }
 
         snake.setTranslateX(x);

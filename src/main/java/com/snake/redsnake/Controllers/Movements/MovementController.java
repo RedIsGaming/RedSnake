@@ -57,8 +57,6 @@ public class MovementController implements Movement {
                 snake.setTranslateX(snake.getTranslateX() + DISTANCE);
                 animationController.createAnimationRight(snake);
             }
-
-            default -> {}
         }
 
         gameStateController.createGameState();

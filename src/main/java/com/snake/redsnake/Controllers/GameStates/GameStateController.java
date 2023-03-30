@@ -43,8 +43,6 @@ public class GameStateController implements GameState {
                 if (x + 0 > PANE_X)
                     snake.setTranslateX(0);
             }
-
-            default -> {}
         }
     }
 }
